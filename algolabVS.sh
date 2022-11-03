@@ -72,7 +72,7 @@ Don't forget that the command name is `algolabVS` (not `algolab`).
 install: "Install" the script into user home (including autocomplete for commands after shell restart).
 After installation, script can be invoked in any directory using the alias 'algolabVS'.
 
-init: Setup project (creates CMakeLists.txt, algorithm.cpp, build directories (both debug and release), vs code config files, git setup and runs cmake)
+init: Setup project (creates CMakeLists.txt, algorithm.cpp, build directories (both debug and release), vs code config files and runs cmake)
 
 clean: Remove build directory and CMakeLists.txt
 
@@ -243,13 +243,6 @@ LAUNCH=$(cat <<'EOF'
 EOF
 )
 
-GITIGNORE=$(cat <<'EOF'
-.vscode/
-build/
-.algolabVS
-EOF
-)
-
 
 # Helper function
 function try_compile() {
@@ -307,7 +300,6 @@ case "$1" in
         mkdir "$vscode_directory"
 
         debug_test_data_filename="${destination}/debug_test_data.txt"
-        gitignore_filename="${destination}/.gitignore"
         launch_filename="${vscode_directory}/launch.json"
         tasks_filename="${vscode_directory}/tasks.json"
 
@@ -321,9 +313,6 @@ case "$1" in
         fi
         if [ ! -f "${debug_test_data_filename}" ]; then
             echo "0" > "${debug_test_data_filename}"
-        fi
-        if [ ! -f "${gitignore_filename}" ]; then
-            echo "$GITIGNORE" > "${gitignore_filename}"
         fi
         echo ""
     	echo "Created VS code config files"
@@ -363,11 +352,6 @@ case "$1" in
         cd ../..
         echo ""
         echo "Finished creating project files."
-        echo ""
-
-        git init
-        echo ""
-        echo "Git init."
         echo ""
         ;;
     edit)
