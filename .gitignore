@@ -1,5 +1,6 @@
 # Custom
-tryout/*
+tryout/
+build/
 
 # Prerequisites
 *.d
