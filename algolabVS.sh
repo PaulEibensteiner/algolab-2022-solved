@@ -286,7 +286,7 @@ case "$1" in
         if [ ! -f src/algorithm.cpp ]; then
             echo "$CXX_TEMPLATE" > src/algorithm.cpp
         fi
-        cp /home/paul/eth/algolab/exercises/prettyprint.hpp ./src
+        cp /home/paul/eth/algolab-2022-solved/prettyprint.hpp ./src
         echo "$CMAKE_FILE" > CMakeLists.txt
         mkdir -p build
         mkdir -p build/debug
