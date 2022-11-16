@@ -1,7 +1,8 @@
 # Custom
 tryout/
 build/
-*.algolabVS
+.algolabVS
+.vscode
 
 # Prerequisites
 *.d
