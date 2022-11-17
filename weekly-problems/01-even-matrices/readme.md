@@ -57,9 +57,8 @@ to come up with a solution faster than $Θ(n^4 )$, and thus achieve the full num
 Let us define a sequence of variables $Y_{i_1 ,i_2}$ , for $1\leq i_1 \leq i_2 \leq n$ as follows:
 
 $$
-Y_{i_1, i_2} = \text{ \# of pairs } (j_1, j_2) \text{ such that } 1 \leq j_1 \leq j_2 \leq n,\ \sum_{i=i_1}^{i_2} \sum_{j=j_1}^{j_2} x_{i,j} \text{ is even}
+Y_{i_1, i_2} = \text{ number of pairs } (j_1, j_2) \text{ such that } 1 \leq j_1 \leq j_2 \leq n,\ \sum_{i=i_1}^{i_2} \sum_{j=j_1}^{j_2} x_{i,j} \text{ is even}
 $$
-
 
 By definition the solution to the problem is equal to $\sum_{i_1=1}^n \sum_{i_2=i_1}^n Y_{i_1, i_2}$. Observe that for a fixed $i_1$ and $i_2$, calculating $Y_{i_1 ,i_2}$ is very similar to *Even Pairs*; the main difference being that instead of an array of numbers we have a matrix where each column plays a role of a single cell in the 1 -dimensional version. This motivates the definition of an array $S_{i-1 ,i_2} = (s_1 ,\ldots,s_n)$ where
 
@@ -83,8 +82,8 @@ pM[i][0] = 0;
 pM[0][i] = 0;
 }
 
-_// Here we compute pM[i][j] by using the values pM[i’][j’] for i’ <= i_
-_// and j’ <= j._
+// Here we compute pM[i][j] by using the values pM[i’][j’] for i’ <= i_
+// and j’ <= j._
 for (int i = 1; i <= n; ++i)
 for (int j = 1; j <= n; ++j)
 pM[i][j] = pM[i-1][j] + pM[i][j-1] - pM[i-1][j-1] + M[i][j];
@@ -112,6 +111,6 @@ for (int i1 = 1; i1 <= n; ++i1) {
     }
 }
 
-// Output the result._
+// Output the result.
 std::cout << counter << std::endl;
 ```
