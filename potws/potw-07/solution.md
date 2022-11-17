@@ -8,4 +8,4 @@ Why? If I had a working solution, that deactivates a bomb $B_i$ before bomb $B_j
 
 ## Implementation
 
-We have to be able to get the minimum Bomb $B_i$ with regard to $t_i$ fast, and we have to get the bombs that it stands on fast. To iteratively get the minimum we can either sort by $t$ or iteratively get the minimum from a heap. To get the bombs that it stands on we can use a simple tree structure, with the lower bombs as children.
+We have to be able to get the minimum Bomb $B_i$ with regard to $t_i$ fast, and we have to get the bombs that it stands on fast. To iteratively get the minimum we can either sort by $t$ or iteratively get the minimum from a heap. To get the bombs that it stands on we can use a simple binary tree structure, with the lower bombs as children. If we have to remove children as given by the tree structure we have to be able to find those children in the heap. This is possible only if the keys by which the bombs are saved in the heap are unique. At the same time they have to keeep the ordering by time. Therefore we use $t_i << 32 + i$ where $i$ is the index in the order of reading the data, and save the keys in long ints.
