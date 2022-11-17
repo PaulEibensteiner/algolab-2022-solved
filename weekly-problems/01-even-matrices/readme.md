@@ -82,8 +82,8 @@ pM[i][0] = 0;
 pM[0][i] = 0;
 }
 
-_// Here we compute pM[i][j] by using the values pM[i’][j’] for i’ <= i_
-_// and j’ <= j._
+// Here we compute pM[i][j] by using the values pM[i’][j’] for i’ <= i_
+// and j’ <= j._
 for (int i = 1; i <= n; ++i)
 for (int j = 1; j <= n; ++j)
 pM[i][j] = pM[i-1][j] + pM[i][j-1] - pM[i-1][j-1] + M[i][j];
@@ -111,6 +111,6 @@ for (int i1 = 1; i1 <= n; ++i1) {
     }
 }
 
-// Output the result._
+// Output the result.
 std::cout << counter << std::endl;
 ```
