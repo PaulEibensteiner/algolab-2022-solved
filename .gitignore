@@ -3,6 +3,7 @@ tryout/
 build/
 .algolabVS
 .vscode
+debug_test_data.txt
 
 # Prerequisites
 *.d
