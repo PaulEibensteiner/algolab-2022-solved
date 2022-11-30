@@ -15,8 +15,7 @@ To maximize the chance of success, Hercules hence needs to find a semi-dead end 
 Input The first line of the input contains the number $t \leqslant 30$ of test cases. Each of the $t$ test cases is described as follows.
 
 - It starts with a line containing two integers $n$ m, separated by a space. They denote
-
-$-n$, the number of locations on the $\operatorname{map}(2 \leqslant n \leqslant 500)$
+- $n$, the number of locations on the $\operatorname{map}(2 \leqslant n \leqslant 500)$
 
 - $m$, the number of directed paths on the map $(1 \leqslant m<250,000)$.
 
