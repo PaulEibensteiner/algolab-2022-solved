@@ -38,12 +38,14 @@ Try only those bitmasks that have even number of consecutive 1s.
 All others are covered by removing single bits and not adding anything new.
 
 Check whether this maximal amount of $2 × 2$ matrices is compatible with the input matrix. If yes, check whether this would lead to a larger tiling.
+
 $$
 DP [i][bitmask] &= 
 \text{max}( \text{max}_{j∈{j | j-\text{th bit is set in }bitmask}}
  DP [i][bitmask\text{ with j}\text{-th bit unset}],\\
 & DP [i − 1][\text{negated }bitmask] + bitcount(bitmask)/2)
 $$
+
 **Runtime:**
 
 Size of the table: $2w · h$.
