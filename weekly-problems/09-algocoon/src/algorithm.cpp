@@ -24,10 +24,10 @@ using namespace std;
 // include "prettyprint.hpp";
 
 class edge_adder {
-	graph &G;
+  graph &G;
 
-	public:
-	explicit edge_adder(graph &G) : G(G) {}
+  public:
+  explicit edge_adder(graph &G) : G(G) {}
 
     void add_edge(int from, int to, long capacity) {
     auto c_map = boost::get(boost::edge_capacity, G);
@@ -40,71 +40,68 @@ class edge_adder {
     r_map[rev_e] = e;
     }
 
-	void clear_residuals() {
-		auto rc_map = boost::get(boost::edge_residual_capacity, G);
-		edge_it e_beg, e_end;
-		for (boost::tie(e_beg, e_end) = boost::edges(G); e_beg != e_end; ++e_beg) {
-			rc_map[*e_beg] = 0;
-		}
-	}
+  void clear_residuals() {
+    auto rc_map = boost::get(boost::edge_residual_capacity, G);
+    edge_it e_beg, e_end;
+    for (boost::tie(e_beg, e_end) = boost::edges(G); e_beg != e_end; ++e_beg) {
+      rc_map[*e_beg] = 0;
+    }
+  }
 
-	void print_all() {
-		auto c_map = boost::get(boost::edge_capacity, G);
-		auto r_map = boost::get(boost::edge_reverse, G);
-		auto rc_map = boost::get(boost::edge_residual_capacity, G);
-		edge_it e_beg, e_end;
-		for (boost::tie(e_beg, e_end) = boost::edges(G); e_beg != e_end; ++e_beg) {
-			cout << boost::source(*e_beg, G) << "->" << boost::target(*e_beg, G) << ": " << "c:" << c_map[*e_beg] << " r: " << r_map[*e_beg] << " rc:" << rc_map[*e_beg] << endl;
-		}
-		cout << endl;
-	}
+  void print_all() {
+    auto c_map = boost::get(boost::edge_capacity, G);
+    auto r_map = boost::get(boost::edge_reverse, G);
+    auto rc_map = boost::get(boost::edge_residual_capacity, G);
+    edge_it e_beg, e_end;
+    for (boost::tie(e_beg, e_end) = boost::edges(G); e_beg != e_end; ++e_beg) {
+      cout << boost::source(*e_beg, G) << "->" << boost::target(*e_beg, G) << ": " << "c:" << c_map[*e_beg] << " r: " << r_map[*e_beg] << " rc:" << rc_map[*e_beg] << endl;
+    }
+    cout << endl;
+  }
 
 };
 
 void testcase() {
-	int n, m;
-	cin >> n >> m;
+  int n, m;
+  cin >> n >> m;
 
-	graph g(n);
-	edge_adder adder(g);
+  graph g(n);
+  edge_adder adder(g);
 
-	for (int mi = 0; mi < m; mi++)
-	{
-		int a,b,c;
-		cin >> a >> b >> c;
-		adder.add_edge(a, b, c);
-	}
+  for (int mi = 0; mi < m; mi++)
+  {
+    int a,b,c;
+    cin >> a >> b >> c;
+    adder.add_edge(a, b, c);
+  }
 
-	
-	const vertex_desc source = boost::add_vertex(g);
-	unsigned int min_flow = -1;
-	for (int v = 1; v < n; v++)
-	{
-		adder.add_edge(source, v, 10000);
-		// adder.print_all();
-		long flow = boost::push_relabel_max_flow(g, 0, v);
-		if (flow < min_flow) {
-			min_flow = flow;
-		}
-		adder.clear_residuals();
+  unsigned int min_flow = -1;
+  for (int v = 1; v < n; v++)
+  {
+    // adder.print_all();
+    long flow = boost::push_relabel_max_flow(g, 0, v);
+    if (flow < min_flow) {
+      min_flow = flow;
+    }
+    adder.clear_residuals();
 
-		
-		flow = boost::push_relabel_max_flow(g, v, 0);
-		if (flow < min_flow) {
-			min_flow = flow;
-		}
-		adder.clear_residuals();
+    
+    flow = boost::push_relabel_max_flow(g, v, 0);
+    if (flow < min_flow) {
+      min_flow = flow;
+    }
+    adder.clear_residuals();
 
-	}
-	cout << min_flow << endl;	  
-	return;
+  }
+  cout << min_flow << endl;    
+  return;
 }
 
 int main() {
-	std::ios_base::sync_with_stdio(false);
+  std::ios_base::sync_with_stdio(false);
 
-	int t;
-	std::cin >> t;
-	for (int i = 0; i < t; ++i)
-		testcase();
+  int t;
+  std::cin >> t;
+  for (int i = 0; i < t; ++i)
+    testcase();
 }
