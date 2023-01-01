@@ -35,5 +35,4 @@ debug_test_data.txt
 
 # Executables
 *.exe
-*.out
 *.app
