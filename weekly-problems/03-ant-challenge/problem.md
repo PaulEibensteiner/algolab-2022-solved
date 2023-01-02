@@ -18,9 +18,9 @@ For all species of forest insects, you are provided their hive's location togeth
 
 See the figure below for an example with two species: both species need to take over parts of the shortest route.
 
-![](https://cdn.mathpix.com/cropped/2023_01_01_ab4b2c48d124cce32f5eg-1.jpg?height=451&width=794&top_left_y=2036&top_left_x=240)
+![](problem.assets/2023_01_01_ab4b2c48d124cce32f5eg-1.jpg)
 
-![](https://cdn.mathpix.com/cropped/2023_01_01_ab4b2c48d124cce32f5eg-1.jpg?height=431&width=686&top_left_y=2052&top_left_x=1142)
+![](problem.assets/2023_01_01_ab4b2c48d124cce32f5eg-1-1672604633552-1.jpg)
 
 **Input **The first line of the input contains the number $t \leqslant 30$ of test cases. Each of the $t$ test cases is described as follows:
 
