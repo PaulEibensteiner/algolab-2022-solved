@@ -14,7 +14,7 @@ They can come with boats, among other ways. The organizers have reserved a ring 
 
 The organizing committee of the Wizard Assembly asked you to write the program BOATS that finds the maximal number of boats which can be tied at the same time to the assigned ring.
 
-![](https://cdn.mathpix.com/cropped/2023_01_03_00918344a14bd120d968g-1.jpg?height=146&width=912&top_left_y=982&top_left_x=871)
+![](problem.assets/2023_01_03_00918344a14bd120d968g-1.jpg)
 **Input** The first line of the input contains the number $t \leqslant 30$ of test cases. Each of the $t$ test cases is described as follows.
 
 - It starts with a line that contains a single integer $\mathrm{n}$, denoting the number of wizards $\left(1 \leqslant n \leqslant 2 \cdot 10^{5}\right)$
