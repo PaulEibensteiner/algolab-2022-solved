@@ -33,9 +33,6 @@ void testcase() {
     ways[wi] = vector<int>(l);
     for (int li = 0; li < l; li++) {
       cin >> ways[wi][li];
-      if (!(ways[wi][li] < num_islands)) {
-        cout << "tf" << endl;
-      }
     }
   }
 
