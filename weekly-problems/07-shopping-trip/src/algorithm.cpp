@@ -11,7 +11,6 @@
 #include <boost/graph/push_relabel_max_flow.hpp>
 
 using namespace std;
-// include "prettyprint.hpp";
 
 // Graph Type with nested interior edge properties for flow algorithms
 typedef boost::adjacency_list_traits<boost::vecS, boost::vecS, boost::directedS>
@@ -64,19 +63,14 @@ void testcase() {
     int u, v;
     cin >> u;
     cin >> v;
-	auto pair = boost::edge(u, v, g);
-	if (pair.second) { // edge already exists
-		// increase capacity of edge by one
-		auto c_map = boost::get(boost::edge_capacity, g);
-		c_map[pair.first]++;
-	} else { // edge does not exist yet
-    	adder.add_edge(u, v, 1);
-	}
+    // no double edges, but undirected ones
+    adder.add_edge(u, v, 1);
+    adder.add_edge(v, u, 1);
   }
 
   long flow = boost::push_relabel_max_flow(g, source, sink);
 
-  if (flow == s) {
+  if (flow >= s) {
     cout << "yes" << endl;
   } else {
     cout << "no" << endl;
