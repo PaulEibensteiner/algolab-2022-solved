@@ -27,7 +27,6 @@ void get_children_recursively(Node *n, stack<Node *> &children) {
 void testcase() {
   int n;
   cin >> n;
-  unsigned int max = numeric_limits<unsigned int>::max();
 
   vector<Node *> nodes;
   nodes.reserve(n);
@@ -42,13 +41,16 @@ void testcase() {
     t = (t << 32) + ni;
     node->t = t;
     nodes.push_back(node);
-    Node *parent = nodes[(ni - 1) / 2];
 
-    node->parent = parent;
-    if (ni % 2 == 0) {
-      parent->right = node;
-    } else {
-      parent->left = node;
+    if (ni != 0) {
+      Node *parent = nodes[(ni - 1) / 2];
+
+      node->parent = parent;
+      if (ni % 2 == 0) {
+        parent->right = node;
+      } else {
+        parent->left = node;
+      }
     }
 
     heap.insert({node->t, node});
@@ -64,7 +66,7 @@ void testcase() {
     get_children_recursively(min, children);
     while (!children.empty()) {
       auto child = children.top();
-      if (time >= (child->t) >> 32) {
+      if (time >= ((child->t) >> 32)) {
         possible = false;
         break;
       }
@@ -74,7 +76,7 @@ void testcase() {
       if (child->parent != NULL) {
         if (child->parent->left == child) {
           child->parent->left = NULL;
-        } else {
+        } else if (child->parent->right == child) {
           child->parent->right = NULL;
         }
       }
@@ -90,17 +92,6 @@ void testcase() {
 
   for (auto node : nodes) {
     delete node;
-  }
-}
-
-void read_thirteen() {
-  while (true) {
-    int i;
-    cin >> i;
-    if (i == 13) {
-      cout << "wtf" << endl;
-      break;
-    }
   }
 }
 
