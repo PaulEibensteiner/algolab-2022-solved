@@ -37,6 +37,8 @@ void testcase(int n) {
     std::cin >> x >> y;
 		auto potential_position = K::Point_2(x, y);
 		Triangulation::Vertex_handle vertex_handle = t.nearest_vertex(potential_position);
+		auto a = potential_position.x();
+		auto b = vertex_handle->point().y();
 		auto dist = (long)(potential_position - vertex_handle->point()).squared_length();
 
 		cout << dist << endl;
