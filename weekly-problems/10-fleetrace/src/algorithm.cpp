@@ -8,12 +8,6 @@
 
 using namespace std;
 
-// ALGOLAB BGL Tutorial 3
-// Code demonstrating
-// - MinCostMaxFlow with arbitrary edge costs using cycle_canceling
-// - MinCostMaxFlow with non-negative edge costs using
-// successive_shortest_path_nonnegative_weights
-
 // Includes
 // ========
 #include <iostream>
@@ -70,43 +64,30 @@ void testcase() {
   auto source = boost::add_vertex(G);
   auto sink = boost::add_vertex(G);
 
-	for (int bi = 0; bi < b; bi++)
-	{
-		adder.add_edge(source, bi, 1, 0);
-		adder.add_edge(bi, sink, 1, 50);
-	}
-	
-	for (int si = b; si < s+b; si++)
-	{
-		adder.add_edge(si, sink, 1, 0);
-	}
+  for (int bi = 0; bi < b; bi++) {
+    adder.add_edge(source, bi, 1, 0);
+    adder.add_edge(bi, sink, 1, 50);
+  }
+
+  for (int si = b; si < s + b; si++) {
+    adder.add_edge(si, sink, 1, 0);
+  }
 
   for (int i = 0; i < p; i++) {
     int bi, si, ci;
     cin >> bi >> si >> ci;
-		int u = bi;
-		int v = si + b;
+    int u = bi;
+    int v = si + b;
 
-		adder.add_edge(u, v, 1, 50-ci);
+    adder.add_edge(u, v, 1, 50 - ci);
   }
 
   // Run the algorithm
-
-  // Option 1: Min Cost Max Flow with cycle_canceling
- /*  int flow1 = boost::push_relabel_max_flow(G, source, sink);
-  boost::cycle_canceling(G);
-  int cost = boost::find_flow_cost(G);
-	int spectacle_sum = 50*flow1 - cost;
-	cout << spectacle_sum << endl; */
-
-  // Option 2: Min Cost Max Flow with
-  // successive_shortest_path_nonnegative_weights
-	
   boost::successive_shortest_path_nonnegative_weights(G, source, sink);
   int cost2 = boost::find_flow_cost(G);
-	int spectacle_sum = 50*b - cost2;
-	cout << spectacle_sum << endl;
-	
+  int spectacle_sum = 50 * b - cost2;
+
+  cout << spectacle_sum << endl;
 }
 
 int main() {
