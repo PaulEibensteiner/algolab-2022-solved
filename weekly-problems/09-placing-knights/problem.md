@@ -10,7 +10,7 @@ Prof. Dr. A. Steger, Prof. Dr. E. Welzl cadmo.ethz.ch/education/lectures/HS22/al
 
 Let us have a square chessboard of a given size with holes. How many knights can you place on the chessboard so that no two knights threaten each other?
 
-Input The first line of the input contains the number of chessboards $1 \leqslant t \leqslant 50$. Each of the $t$ chessboards is described as follows:
+**Input** The first line of the input contains the number of chessboards $1 \leqslant t \leqslant 50$. Each of the $t$ chessboards is described as follows:
 
 - It starts with a line containing $1 \leqslant n \leqslant 2^{6}$, the length of each side of the chessboard in squares.
 
