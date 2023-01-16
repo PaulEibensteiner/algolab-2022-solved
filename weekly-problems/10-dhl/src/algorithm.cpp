@@ -31,10 +31,14 @@ int getbest(int start_a, int start_b) {
 	int min = numeric_limits<int>::max();
 	for (int i = start_a+1; i < n; i++)
 	{
-		for (int j = start_b+1; j < n; j++)
-		{
-			min = std::min(min, (sub_as[i] - sub_as[start_a]) * (sub_bs[j] - sub_bs[start_b]) + getbest(i, j));
-		}
+		int j = start_b+1;
+		min = std::min(min, (sub_as[i] - sub_as[start_a]) * (sub_bs[j] - sub_bs[start_b]) + getbest(i, j));
+	}
+
+	for (int j = start_b+1; j < n; j++)
+	{
+		int i = start_a+1;
+		min = std::min(min, (sub_as[i] - sub_as[start_a]) * (sub_bs[j] - sub_bs[start_b]) + getbest(i, j));
 	}
 
 	best[start_a][start_b] = min;
@@ -79,6 +83,11 @@ void testcase() {
 
 int main() {
 	std::ios_base::sync_with_stdio(false);
+
+	// int k = 3*(9+12) + (5+5+7+6+4)*2 + 3*(4+3+5+7) + 7*6;
+	// int k1 = 3*(9+12) + (5+5+7)*2 + 6*4 + 4*3 + 3*(5+7) + 7*6;
+	// cout << k1;
+	// return 0;
 
 	int t;
 	std::cin >> t;
