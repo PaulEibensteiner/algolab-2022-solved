@@ -12,16 +12,20 @@ using namespace std;
 // BGL includes
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/cycle_canceling.hpp>
+#include <boost/graph/find_flow_cost.hpp>
 #include <boost/graph/push_relabel_max_flow.hpp>
 #include <boost/graph/successive_shortest_path_nonnegative_weights.hpp>
-#include <boost/graph/find_flow_cost.hpp>
 
 // Graph Type with nested interior edge properties for flow algorithms
-typedef boost::adjacency_list_traits<boost::vecS, boost::vecS, boost::directedS> traits;
-typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, boost::no_property,
+typedef boost::adjacency_list_traits<boost::vecS, boost::vecS, boost::directedS>
+    traits;
+typedef boost::adjacency_list<
+    boost::vecS, boost::vecS, boost::directedS, boost::no_property,
     boost::property<boost::edge_capacity_t, long,
-        boost::property<boost::edge_residual_capacity_t, long,
-            boost::property<boost::edge_reverse_t, traits::edge_descriptor>>>> graph;
+                    boost::property<boost::edge_residual_capacity_t, long,
+                                    boost::property<boost::edge_reverse_t,
+                                                    traits::edge_descriptor>>>>
+    graph;
 
 typedef traits::vertex_descriptor vertex_desc;
 typedef traits::edge_descriptor edge_desc;
@@ -39,7 +43,7 @@ class edge_adder {
     const auto e = boost::add_edge(from, to, G).first;
     const auto rev_e = boost::add_edge(to, from, G).first;
     c_map[e] = capacity;
-    c_map[rev_e] = 0; // reverse edge has no capacity!
+    c_map[rev_e] = 0;  // reverse edge has no capacity!
     r_map[e] = rev_e;
     r_map[rev_e] = e;
   }
@@ -57,31 +61,28 @@ void testcase() {
   auto sink = boost::add_vertex(g);
 
   long sum = 0;
-  for (int ni = 0; ni < n; ni++)
-  {
-    int score;
-    cin >> score;
-    if (score > 0) {
-      sum += score;
-      adder.add_edge(source, ni, score);
-    } else if (score < 0) {
-      adder.add_edge(ni, sink, -score);
+  for (int ni = 0; ni < n; ni++) {
+    int balance;
+    cin >> balance;
+    if (balance > 0) {
+      sum += balance;
+      adder.add_edge(source, ni, balance);
+    } else if (balance < 0) {
+      adder.add_edge(ni, sink, -balance);
     }
   }
 
-  for (int mi = 0; mi < m; mi++)
-  {
-    int u, v;
-    std::cin >> u >> v;
-    adder.add_edge(u, v, LONG_MAX);
+  for (int mi = 0; mi < m; mi++) {
+    int u, v, d;
+    std::cin >> u >> v >> d;
+    adder.add_edge(u, v, d);
   }
 
   // long flow = boost::push_relabel_max_flow(g, source, sink);
   long flow = boost::push_relabel_max_flow(g, source, sink);
   long result = sum - flow;
 
-  cout << (result > 0 ? to_string(result) : "impossible") << endl;
-
+  cout << (result > 0 ? "yes" : "no") << endl;
 }
 
 int main() {
