@@ -14,23 +14,22 @@ The Daily Telegraph has two sides: a front side and a back side. Both sides cont
 
 Help Scotland Yard to determine if the anonymous note could have possibly been made by cutouts from The Daily Telegraph.
 
-Input The first line of the input contains the number $t \leqslant 30$ of test cases. All newspaper and note characters are capital English letters from A to Z (no whitespaces, punctuation, accents, or other special characters). Each of the $t$ test cases is described as follows.
+**Input** The first line of the input contains the number $t \leqslant 30$ of test cases. All newspaper and note characters are capital English letters from A to Z (no whitespaces, punctuation, accents, or other special characters). Each of the $t$ test cases is described as follows.
 
-- The first line contains two integers $\mathrm{h} \mathrm{w}$, separated by a space. They denote
+- The first line contains two integers $h\ w$, separated by a space. They denote
+  - $h$, the number of lines in the newspaper $\left(2 \leqslant h \leqslant 10^{3}\right)$;
+  - $w$, the number of letters on every line of the newspaper $\left(2 \leqslant w \leqslant 10^{3}\right)$.
 
-$-h$, the number of lines in the newspaper $\left(2 \leqslant h \leqslant 10^{3}\right)$;
-
-$-w$, the number of letters on every line of the newspaper $\left(2 \leqslant w \leqslant 10^{3}\right)$.
 
 - The second line defines the note from the crime scene. It consists of a single string of $n$ letters $\left(2 \leqslant n \leqslant 10^{6}\right)$. Note that $n$ need not be equal to the number of newspaper pieces.
 
-- The following $\mathrm{h}$ lines define the text on the front side of the newspaper. Each line contains exactly $w$ letters.
+- The following $h$ lines define the text on the front side of the newspaper. Each line contains exactly $w$ letters.
 
 - The final $h$ lines define the text on the back side of the newspaper. Each line contains exactly $w$ letters. Note that on the back of the $i$-th line from the front side of the newspaper is the $i$-th line from the back side, for $i \in\{0, \ldots, h-1\}$. For every line of the newspaper, on the back of the $j$-th letter from the front side is the $(w-j-1)$-th letter from the back side, for $j \in\{0, \ldots, w-1\}$.
 
-Output For each test case output one line with a single word "Yes" or "No", indicating whether or not the note can be composed from the given newspaper page.
+**Output** For each test case output one line with a single word "Yes" or "No", indicating whether or not the note can be composed from the given newspaper page.
 
-Points There are five groups of test sets, worth 100 points in total.
+**Points** There are five groups of test sets, worth 100 points in total.
 
 1. For the first group of test sets, worth 10 points, you may assume that all letters on the back side of the newspaper are identical and that $h, w \leqslant 30$.
 
