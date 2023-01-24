@@ -18,12 +18,10 @@ void testcase() {
   int n;
   cin >> n;
 
-  list<Biker> bikers;
-
-  vector<int> array = { 1, 4, 9, 11, 17, 25, 33, 37, 56, 58, 65, 77, 128 };
+  vector<Biker> bikers;
+  vector<bool> dead(n, false);
 
   for (int ni = 0; ni < n; ++ni) {
-
     long a, b, y;
     cin >> y;
     cin >> b;
@@ -31,61 +29,47 @@ void testcase() {
     a -= y;
     bikers.push_back(Biker(y, a, b, ni));
   }
-
-  bikers.sort([](const Biker& p1, const Biker& p2) -> bool { return p1.y < p2.y; });
-/* 
-  for (auto b : bikers) {
-    cout << b.i << ": " << b.y << ", " << boost::rational_cast<double>(b.slope)  << endl;
-  }
-  cout << endl;
-  */
-
-  // up -> if alpha < 0 && alpha < alpha_min => delete biker
-  // if |alpha| < alpha_min => alpha_min = |alpha|
   
-  auto i = bikers.begin();
-  boost::rational<long> alpha_min = i->slope;
-  while (i != bikers.end()) {
-    if (i->slope < 0 && boost::abs(i->slope) > boost::abs(alpha_min)) {
-      bikers.erase(i++);
-    } else if (i->slope < 0 && i->slope == alpha_min * -1) {
-      // cout << i->slope << " == " << alpha_min << ", ";
-      bikers.erase(i++);
-    } else if (boost::abs(i->slope) < boost::abs(alpha_min)) {
-      alpha_min = i->slope;
-      i++;
-    } else {
-      i++;
-    }
-  }
+  sort(
+    bikers.begin(),
+    bikers.end(),
+    [](const Biker& p1, const Biker& p2) -> bool { return p1.y < p2.y; }
+  );
 
-  // down
-  bikers.reverse();
-  
-  auto y = bikers.begin();
-  alpha_min = boost::abs(y->slope);
-  while (y != bikers.end()) {
-    if (y->slope > 0 && y->slope > alpha_min) {
-      bikers.erase(y++);
-    } else if (boost::abs(y->slope) < alpha_min) {
-      alpha_min = boost::abs(y->slope);
-      y++;
-    } else {
-      y++;
+  boost::rational<long> closest_angle_to_zero = boost::rational<long>(LONG_MAX, 1);
+
+  // Go through bikers from small y starting position to big y starting position
+  // If current biker is angled downwards and there is a biker before, whos angle is closer to 0
+  // then delete the current biker
+  for (auto current_biker = bikers.begin();current_biker != bikers.end(); current_biker++) {
+    if (current_biker->slope < 0 && boost::abs(current_biker->slope) > boost::abs(closest_angle_to_zero)) { 
+      dead[current_biker->i] = true;
+    } else if (current_biker->slope < 0 && current_biker->slope == -closest_angle_to_zero) {
+      dead[current_biker->i] = true;
+    } else if (boost::abs(current_biker->slope) < boost::abs(closest_angle_to_zero)) {
+      closest_angle_to_zero = current_biker->slope;
+    } else if (boost::abs(current_biker->slope) == boost::abs(closest_angle_to_zero)) {
+      closest_angle_to_zero = max(current_biker->slope, closest_angle_to_zero);
     }
   }
   
-  /*
-  */
-
-  bikers.sort([](const Biker& p1, const Biker& p2) -> bool { return p1.i < p2.i; });
-
-  for (auto b : bikers) {
-    cout << b.i << " "; // << ":" << b.y << ":" << b.slope << " ";
-      
+  closest_angle_to_zero = boost::rational<long>(LONG_MAX, 1);
+  for (auto current_biker = bikers.rbegin();current_biker != bikers.rend(); current_biker++) {
+    if (current_biker->slope > 0 && boost::abs(current_biker->slope) > boost::abs(closest_angle_to_zero)) {
+      dead[current_biker->i] = true;
+    } else if (boost::abs(current_biker->slope) < boost::abs(closest_angle_to_zero)) {
+      closest_angle_to_zero = current_biker->slope;
+    }
   }
+
+  for (int i = 0; i < n; i++)
+  {
+    if (!dead[i]) {
+      cout << i << " ";
+    }
+  }
+  
   cout << endl;
-  // 1 11 25 128
 
   return;
 }
