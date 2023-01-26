@@ -64,7 +64,7 @@ void testcase() {
 	cin >> N >> S;
 
 
-	// auto t = clock();
+	auto t = clock();
 	auto nodes = vector<map<int, int>>(S); // time->index
 
 	vector<int> start_caps(S);
@@ -152,8 +152,8 @@ void testcase() {
   long cost = boost::find_flow_cost(g);
 	long profit = start_cap_sum * 100000 * 100 - cost;
 	
-	// t = clock() - t;
-	// std::cout << t << ", ";
+	t = clock() - t;
+	std::cout << t << ", ";
 	// std::cout << "vertices: " << cur_v_index << " edges: " << n_edges << " weight sum: " << weight_sum << endl;
 	std::cout << profit << endl;
 	return;
