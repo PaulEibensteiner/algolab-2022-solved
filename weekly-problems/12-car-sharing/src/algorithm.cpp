@@ -48,25 +48,26 @@ class edge_adder {
 
 using namespace std;
 
-struct Node {
-	int index, time;
-
-	Node(int index, int time) : index(index), time(time) { }
-};
-
-struct Edge {
-	int start, end;
-	long cap, cost;
-};
-
 void testcase() {
 	int N, S;
 	cin >> N >> S;
 
-
-	auto t = clock();
+  const int MAXT = 100000;
+  const int MAXC = 100;
 	auto nodes = vector<map<int, int>>(S); // time->index
+	auto source = 0;
+	auto sink = 1;
+	int cur_v_index = 2;
+	graph g(cur_v_index);
+	edge_adder adder(g);
 
+	// add start and end nodes because a station might not have a single node
+	for (auto &&stations : nodes)
+	{
+		stations.emplace(0, cur_v_index);
+		cur_v_index++;
+	}
+	
 	vector<int> start_caps(S);
 	long start_cap_sum = 0;
 	for (int i = 0; i < S; i++)
@@ -75,10 +76,7 @@ void testcase() {
 		start_cap_sum += start_caps[i];
 	}
 
-	int cur_v_index = 2;
-	vector<Edge> edges(N);
-	int n_edges = 0;
-	long weight_sum = 0;
+
 	for (int i = 0; i < N; i++)
 	{
 		int s, t, d, a, p;
@@ -93,68 +91,45 @@ void testcase() {
 		if (inserted) {
 			cur_v_index++;
 		}
-		long cost = 100 * (a - d) - p;
-		// adder.add_edge(start_it->second, target_it->second, 1, cost);
-		edges[i] = { start_it->second, target_it->second, 1, cost };
-	}
-
-	graph g(cur_v_index);
-	edge_adder adder(g);
-	auto source = 0;
-	auto sink = 1;
-
-	for (auto &&e : edges)
-	{
-		n_edges++;
-		weight_sum += e.cost;
-		adder.add_edge(e.start, e.end, e.cap, e.cost);
+		long cost = MAXC * (a - d) - p;
+		adder.add_edge(start_it->second, target_it->second, 1, cost);
 	}
 	
 	for (int i = 0; i < S; i++)
 	{
-		n_edges++;
-		weight_sum += 100*nodes[i].begin()->first;
 		adder.add_edge(
 			source, 
 			nodes[i].begin()->second, 
 			start_caps[i], 
-			100*nodes[i].begin()->first
+			MAXC*nodes[i].begin()->first
 		);
 
 		auto cur = nodes[i].begin();
 		auto next = nodes[i].begin();
 		next++;
 		while (next != nodes[i].end()) {
-			n_edges++;
-			weight_sum += 100 * (next->first - cur->first);
 			adder.add_edge(
 				cur->second,
 				next->second,
 				100*S,
-				100 * (next->first - cur->first)
+				MAXC * (next->first - cur->first)
 			);
 			next++;
 			cur++;
 		}
-		n_edges++;
-		weight_sum += 100*(100000 - nodes[i].rbegin()->first);
 		adder.add_edge(
 			nodes[i].rbegin()->second, 
 			sink, 
-				100*S,
-			100*(100000 - nodes[i].rbegin()->first)
+			100*S,
+			MAXC*(MAXT - nodes[i].rbegin()->first)
 		);
 	}
 
 	boost::successive_shortest_path_nonnegative_weights(g, source, sink);
-	
 
   long cost = boost::find_flow_cost(g);
-	long profit = start_cap_sum * 100000 * 100 - cost;
+	long profit = start_cap_sum * MAXT * MAXC - cost;
 	
-	t = clock() - t;
-	std::cout << t << ", ";
-	// std::cout << "vertices: " << cur_v_index << " edges: " << n_edges << " weight sum: " << weight_sum << endl;
 	std::cout << profit << endl;
 	return;
 }
