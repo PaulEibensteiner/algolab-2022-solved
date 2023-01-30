@@ -22,12 +22,12 @@ int unique(vector<int>& li) {
 }
 
 int index(vector<int>& li) {
-	vector<int> post_li(li.end() - min((int)li.size(), m), li.end());
+	vector<int> post_li(li.end() - min((int)li.size(), m-1), li.end());
 	int i = 0;
 	int digit = 0;
 	for (auto &&el : post_li)
 	{
-		i += (el + 1) * pow(2, digit*digits_for_k);
+		i += el * pow(2, digit*digits_for_k);
 		digit += 1;
 	}
 	return i;
@@ -94,8 +94,8 @@ void testcase() {
 		cin >> q[i];
 	}
 
-	digits_for_k = (int)floor(log2(k)) + 1;
-	int mod = pow(2, digits_for_k * m);
+	digits_for_k = (int)floor(log2(k-1)) + 1;
+	int mod = pow(2, digits_for_k * (m-1));
 	// int mod = pow(2, 6);
 
 
