@@ -1,150 +1,119 @@
-#include <limits>
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <cmath>
-#include <algorithm>
-#include <vector>
-#include <CGAL/QP_models.h>
+#include <CGAL/Gmpz.h>
 #include <CGAL/QP_functions.h>
-#include <CGAL/Gmpq.h>
+#include <CGAL/QP_models.h>
 #include <CGAL/Quotient.h>
+
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <string>
+#include <vector>
+#include "printlp.hpp"
 
 using namespace std;
 
 typedef CGAL::Gmpq ET;
-typedef CGAL::Gmpq Rational;
+// typedef CGAL::Gmpq Rational;
+typedef CGAL::Gmpq IT;
 
 // program and solution types
-typedef CGAL::Quadratic_program<Rational> Program;
+typedef CGAL::Quadratic_program<IT> Program;
 typedef CGAL::Quadratic_program_solution<ET> Solution;
 
 struct Point {
-	Rational x, y;
+  IT x, y;
 
-	Point(Rational x, Rational y) : x(x), y(y) {}
+  Point(IT x, IT y) : x(x), y(y) {}
 };
 
+double ceil_to_double(const CGAL::Quotient<ET>& x) {
+  double a = std::ceil(CGAL::to_double(x));
+  while (a < x) a += 1;
+  while (a - 1 >= x) a -= 1;
+  return a;
+}
+
+double floor_to_double(const CGAL::Quotient<ET>& x) {
+  double a = std::floor(CGAL::to_double(x));
+  while (a > x) a -= 1;
+  while (a + 1 <= x) a += 1;
+  return a;
+}
+
 void testcase() {
-	int n, m, h, w;
+  int n, m, h, w;
+  cin >> n >> m >> h >> w;
 
-	cin >> n;
-	cin >> m;
-	cin >> h;
-	cin >> w;
+  auto ns = vector<Point>();
+  auto ms = vector<Point>();
+  ns.reserve(n);
+  ms.reserve(m);
 
-	auto ns = vector<Point>();
-	auto ms = vector<Point>();
-	ns.reserve(n);
-	ms.reserve(m);
+  for (int i = 0; i < n; i++) {
+    int x_orig, y_orig;
+    cin >> x_orig;
+    cin >> y_orig;
+    ns.push_back(Point(x_orig, y_orig));
+  }
 
-	for (int i = 0; i < n; i++)
-	{
-		int x_orig,y_orig;
-		cin >> x_orig;
-		cin >> y_orig;
+  for (int i = 0; i < m; i++) {
+    int x_orig, y_orig;
+    cin >> x_orig;
+    cin >> y_orig;
+    ms.push_back(Point(x_orig, y_orig));
+  }
 
-		Rational x, y;
-		x = Rational(2*x_orig, w);
-		y = Rational(2*y_orig, h);
-		ns.push_back(Point(x, y));
-	}
+  Program lp(CGAL::SMALLER, true, 1, false, 0);
 
-	for (int i = 0; i < m; i++)
-	{
-		int x_orig,y_orig;
-		cin >> x_orig;
-		cin >> y_orig;
+  // My variables a_i go from 0 to n, with the corresponding center Point
 
-		Rational x, y;
-		x = Rational(2*x_orig, w);
-		y = Rational(2*y_orig, h);
-		ms.push_back(Point(x, y));
-	}
+  int i = 0;
+  for (int ai = 0; ai < n; ai++) {
+    auto Point1 = ns[ai];
+    for (int aj = ai + 1; aj < n; aj++) {
+      auto Point2 = ns[aj];
+      if (CGAL::abs(Point1.x - Point2.x) / w >
+          CGAL::abs(Point1.y - Point2.y) / h) {
+        lp.set_a(ai, i, w);
+        lp.set_a(aj, i, w);
+        lp.set_b(i, 2 * CGAL::abs(Point1.x - Point2.x));
+      } else {
+        lp.set_a(ai, i, h);
+        lp.set_a(aj, i, h);
+        lp.set_b(i, 2 * CGAL::abs(Point1.y - Point2.y));
+      }
+      i++;
+    }
 
-	Program lp(CGAL::SMALLER, true, 1, false, 0);
+    IT min_dist = IT(LONG_MAX);
+    for (int mi = 0; mi < m; mi++) {
+      auto Point2 = ms[mi];
+      min_dist = min(min_dist, max(CGAL::abs(Point1.x - Point2.x) / w,
+                                   CGAL::abs(Point1.y - Point2.y) / h));
+    }
+    lp.set_u(ai, true, 2 * min_dist - 1);
+  }
 
-	// My variables a_i go from 0 to n, with the corresponding center Point
+  // set objective, max sum_i(a_i)
 
-	int i = 0;
-	for (int ai = 0; ai < n; ai++) {
-		auto Point1 = ns[ai];
-		for (int aj = ai; aj < n; aj++)
-		{
-			if (ai == aj) {
-				continue;
-			}
-			auto Point2 = ns[aj];
+  for (int ai = 0; ai < n; ai++) {
+    lp.set_c(ai, -1);
+  }
+	cout << lp << endl;
+  auto s = CGAL::solve_linear_program(lp, ET()).objective_value();
 
-			Rational zi, zj;
+  s = 2 * (w + h) * (-s);
+  cout << (long)ceil(CGAL::to_double(s)) << endl;
 
-			if (CGAL::abs(Point1.x - Point2.x) > CGAL::abs(Point1.y - Point2.y)) {
-				zi = Point1.x;
-				zj = Point2.x;
-			} else {
-				zi = Point1.y;
-				zj = Point2.y;
-			}
-			lp.set_a(ai, i, 1);
-			lp.set_a(aj, i, 1);
-			if (zi < zj) {
-				lp.set_b(i, zj - zi);
-				//cout << "a" << ai << " + " << "a" << aj << " <= " << zj-zi << endl;
-			} else {
-				lp.set_b(i, zi - zj);
-				//cout << "a" << ai << " + " << "a" << aj << " <= " << zi-zj << endl;
-			}
-			i++;
-		}
-
-		for (int mi = 0; mi < m; mi++) {
-			auto Point2 = ms[mi];
-
-			Rational zi, zj;
-
-			if (CGAL::abs(Point1.x - Point2.x) > CGAL::abs(Point1.y - Point2.y)) {
-				zi = Point1.x;
-				zj = Point2.x;
-			} else {
-				zi = Point1.y;
-				zj = Point2.y;
-			}
-
-			if (zi < zj) {
-				lp.set_u(ai, true, zj-zi-1);
-				//cout << "a" << ai << " <= " << zj-zi-1 << endl;
-			} else {
-				lp.set_u(ai, true, zi-zj-1);
-				//cout << "a" << ai << " <= " << zi-zj-1 << endl;
-			}
-		}
-
-	}
-
-	// set objective, max sum_i(a_i)
-
-	for (int ai = 0; ai < n; ai++)
-	{
-		lp.set_c(ai, -1);
-	}
-
-	auto s = CGAL::solve_linear_program(lp, ET()).objective_value();
-
-	// auto s = solution.objective_value().numerator() / solution.objective_value().denominator();
-
-	int rounded = round((s.numerator().numerator().to_double() * s.denominator().denominator().to_double()) / (s.numerator().denominator().to_double() * s.denominator().numerator().to_double()));
-
-	std::cout << s << "->" << rounded << endl;
-	std::cout << 2 * (w+h) * -rounded << endl;
-
-	return;
+  return;
 }
 
 int main() {
-	std::ios_base::sync_with_stdio(false);
+  std::ios_base::sync_with_stdio(false);
 
-	int t;
-	std::cin >> t;
-	for (int i = 0; i < t; ++i)
-		testcase();
+  int t;
+  std::cin >> t;
+  for (int i = 0; i < t; ++i) testcase();
 }

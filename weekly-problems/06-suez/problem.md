@@ -10,7 +10,7 @@ The detective wants to display all posters on a wall in his office. For that pur
 
 Needless to say, being the perfectionist that he is, Fix does not want any of the posters (either old or new) to overlap. Nor does he want to hang up any of the posters sideways or at an angle. It should also go without saying that the trophies from his past-that is, the posters that are already on the wall-are to remain untouched.
 
-By decree AW-80d, all posters provided by Scotland Yard have the exact same format; they are $h$ inches high and $w$ inches wide. This holds for both the old posters and the new. However, Fix believes that maximizing the sum of perimeters of all new posters will also maximize his chance of recognizing one of the faces. He is thus willing to infringe AW-80d by using his newly purchased magnifying machine to generate scaled copies of the new posters. Note that since this is a magnifying machine, it can only be used to make the posters larger. That is, Fix can transform the size of any poster from $h$-by- $w$ to $(a h)$-by-( $a w)$, where $a \geqslant 1$ is a scaling factor that can be chosen individually for each poster.
+By decree AW-80d, all posters provided by Scotland Yard have the exact same format; they are $h$ inches high and $w$ inches wide. This holds for both the old posters and the new. However, Fix believes that maximizing the sum of perimeters of all new posters will also maximize his chance of recognizing one of the faces. He is thus willing to infringe AW-80d by using his newly purchased magnifying machine to generate scaled copies of the new posters. Note that since this is a magnifying machine, it can only be used to make the posters larger. That is, Fix can transform the size of any poster from $h$-by-$w$ to $(a h)$-by-$(a w )$, where $a \geqslant 1$ is a scaling factor that can be chosen individually for each poster.
 
 For the sake of maximal stability, Fix wants each nail to go through the center of the corresponding poster. In other words, if a nail has coordinates $(x, y)$ then the corresponding (scaled) poster covers the area
 
@@ -20,25 +20,28 @@ $$
 
 Can you help Fix set up his wall before the arrival of the Mongolia?
 
-Input The first line of the input contains the number $t \leqslant 30$ of test cases. Each of the $t$ test cases is described as follows.
+**Input** The first line of the input contains the number $t \leqslant 30$ of test cases. Each of the $t$ test cases is described as follows.
 
-- It starts with a line containing four integers $\mathrm{n} \mathrm{m} \mathrm{h}$, separated by a space. They denote
+- It starts with a line containing four integers $n\ m\ h\ w$, separated by a space. They denote
 
-- $n$, the number of new posters to be added to the wall $(2 \leqslant n \leqslant 30)$;
+  - $n$, the number of new posters to be added to the wall $(2 \leqslant n \leqslant 30)$;
 
-- $m$, the number of old posters already hanging on the wall $\left(0 \leqslant m \leqslant 10^{3}\right)$;
+  - $m$, the number of old posters already hanging on the wall $\left(0 \leqslant m \leqslant 10^{3}\right)$;
 
-- $h$, the height of the posters as per AW-80d $\left(0<h<2^{7}\right)$;
+  - $h$, the height of the posters as per AW-80d $\left(0<h<2^{7}\right)$;
 
-$-w$, the width of the posters as per AW-80d $\left(0<w<2^{7}\right)$. - The following $n$ lines define the positions of the free nails on the wall.
+  - $w$, the width of the posters as per AW-80d $\left(0<w<2^{7}\right)$.
+
+- The following $n$ lines define the positions of the free nails on the wall.
+
 
 - The following $m$ lines define the positions of the already occupied nails on the wall.
 
-Each position is described by two integers $x$, separated by a space and such that $|x|,|y|<2^{24}$. Here, $x$ and $y$ denote the coordinates in inches of the corresponding nail on the wall. You may assume that the $n+m$ positions of all nails are such that it is possible to hang up a poster with size h-by- $w$ centered at each nail without any overlap.
+Each position is described by two integers $x\ y$, separated by a space and such that $|x|,|y|<2^{24}$. Here, $x$ and $y$ denote the coordinates in inches of the corresponding nail on the wall. You may assume that the $n+m$ positions of all nails are such that it is possible to hang up a poster with size $h$-by-$w$ centered at each nail without any overlap.
 
-Output For each test case output on a separate line the maximum attainable sum of perimeters of the new posters in inches, rounded up to the nearest integer.
+**Output** For each test case output on a separate line the maximum attainable sum of perimeters of the new posters in inches, rounded up to the nearest integer.
 
-Points There are four groups of test sets, each of which is worth 25 points.
+**Points** There are four groups of test sets, each of which is worth 25 points.
 
 1. For the first group of test sets, you may assume that all nails are arranged on a horizontal line $(y=0)$ and that there are no old posters $(m=0)$.
 
