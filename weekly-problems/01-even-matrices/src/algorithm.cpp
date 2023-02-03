@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int O_of_four() {
+int main() {
   int t;
   cin >> t;
   
@@ -33,7 +33,7 @@ int O_of_four() {
         sums[i][j] = sums[i-1][j] + sums[i][j-1] - sums[i-1][j-1] + ns[i][j];
       }
     }
-
+    
     int evens = 0;
     
     for (int i = 1; i < n+1; i++) {
@@ -53,15 +53,4 @@ int O_of_four() {
     
     cout << evens << endl;
   }
-}
-
-int main() {
-  std::ios_base::sync_with_stdio(false);
-
-  int t;
-  std::cin >> t;
-  for (int i = 0; i < t; ++i)
-    testcase();
-
-  return 0;
 }
