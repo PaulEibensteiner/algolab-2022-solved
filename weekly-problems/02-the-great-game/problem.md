@@ -56,7 +56,7 @@ Between every pair of positions there is at most one transition.
 
 Figure 1: Example game for the second test case.
 
-Points We say that a sequence of positions $p_{1}, p_{2}, \ldots, p_{k-1}, p_{k}$ is a path from $p_{1}$ to $p_{k}$ if there is a transition from $p_{i}$ to $p_{i+1}$, for every $i \in\{1, \ldots, k-1\}$.
+**Points** We say that a sequence of positions $p_{1}, p_{2}, \ldots, p_{k-1}, p_{k}$ is a path from $p_{1}$ to $p_{k}$ if there is a transition from $p_{i}$ to $p_{i+1}$, for every $i \in\{1, \ldots, k-1\}$.
 
 There are four groups of test sets, worth 100 points in total.
 
@@ -71,5 +71,3 @@ There are four groups of test sets, worth 100 points in total.
 Remark: two different paths between positions $u$ and $v$ can intersect at positions beside $u$ and $v$
 
 Corresponding sample test sets are contained in testi.in/out, for $i \in\{1,2,3,4\}$.
-
-Sample Input

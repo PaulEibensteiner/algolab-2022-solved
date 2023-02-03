@@ -34,4 +34,6 @@ As your program will be run for every document matching a query, it must be very
 
 2. For the second group of test sets, worth 25 points, you may assume that $n \leqslant 2^{8}$.
 
-3. For the third group of test sets, worth 25 points, there are no additional assumptions. Corresponding sample test sets are contained in testi.in/out, for $i \in\{1,2,3\}$.
+3. For the third group of test sets, worth 25 points, there are no additional assumptions.
+
+Corresponding sample test sets are contained in testi.in/out, for $i \in\{1,2,3\}$.

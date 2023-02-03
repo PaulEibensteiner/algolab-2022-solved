@@ -16,7 +16,7 @@ As a first approximation to the number of potential customers you look at satell
 
 With this data at hand, all that remains to do is to identify the best possible locations for your bar. For each point on the beach you can compute how many parasols are at most 100m away from it and pick out all points that maximize this number. However you quickly realize that this leads to a large number of locations. You then decide that you further want to minimize the maximum distance that any of your potential customers (i.e. those within 100m) must walk.
 
-Input The first line of the input contains the number $t \leqslant 40$ of test cases. Each test case is described as follows.
+**Input** The first line of the input contains the number $t \leqslant 40$ of test cases. Each test case is described as follows.
 
 - It starts with a line that contains an integer $\mathrm{n}$ denoting the number of parasols, and such that $1 \leqslant n \leqslant 10^{6}$.
 
