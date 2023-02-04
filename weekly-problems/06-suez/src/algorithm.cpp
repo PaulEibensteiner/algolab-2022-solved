@@ -10,7 +10,6 @@
 #include <limits>
 #include <string>
 #include <vector>
-#include "printlp.hpp"
 
 using namespace std;
 
@@ -101,7 +100,7 @@ void testcase() {
   for (int ai = 0; ai < n; ai++) {
     lp.set_c(ai, -1);
   }
-	cout << lp << endl;
+	// cout << lp << endl;
   auto s = CGAL::solve_linear_program(lp, ET()).objective_value();
 
   s = 2 * (w + h) * (-s);
