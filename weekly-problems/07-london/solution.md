@@ -1,3 +1,0 @@
-# Solution
-
-Given in pdf
