@@ -1,40 +1,20 @@
-#include <limits>
-#include <iostream>
-#include <iomanip>
-#include <string>
 #include <cmath>
-#include <algorithm>
-#include <vector>
-#include <map>
-#include <stack>
-#include <queue>
+#include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
-// include "prettyprint.hpp";
 
-struct Edge
-{
-	unsigned int destination, weight;
+struct Edge {
+  unsigned int destination, weight;
 
-	Edge(unsigned int d, unsigned int w) : destination(d), weight(w) {};
+  Edge(unsigned int d, unsigned int w) : destination(d), weight(w){};
 };
 
-struct Vertex {
-	unsigned int v, k;
-	Vertex(unsigned int v, unsigned int k) : v(v), k(k) {};
-};
-
-// at vertex i_1, we need 
 vector<vector<Edge>> adjacency;
 long x;
-unsigned int k;
+long k;
 unsigned int n, m;
-
-
-
-// Idee: BFS mit ki mitzählen, wenn ich bei k angelangt bin, dann memo[v][]
-// dabei knoten auf den stack pushen
 
 void testcase() {
   cin >> n;
@@ -44,8 +24,7 @@ void testcase() {
 
   adjacency = vector<vector<Edge>>(n);
 
-  for (size_t mi = 0; mi < m; mi++)
-  {
+  for (size_t mi = 0; mi < m; mi++) {
     unsigned int u, v, p;
     cin >> u;
     cin >> v;
@@ -53,6 +32,7 @@ void testcase() {
 
     adjacency[u].push_back(Edge(v, p));
   }
+
   // Add out-edges of starting vertex to ones without any out-edges
   for (auto& edges : adjacency) {
     if (edges.empty()) {
@@ -83,15 +63,14 @@ void testcase() {
     cur_range.swap(prev_range);
   }
 
-  cout << (impossible ? "Impossible" : to_string(range));
-	return;
+  cout << (impossible ? "Impossible" : to_string(range)) << endl;
+  return;
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
+  ios_base::sync_with_stdio(false);
 
-	int t;
-	cin >> t;
-	for (int i = 0; i < t; ++i)
-		testcase();
+  int t;
+  cin >> t;
+  for (int i = 0; i < t; ++i) testcase();
 }
