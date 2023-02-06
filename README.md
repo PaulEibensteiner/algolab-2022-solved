@@ -5,3 +5,5 @@ Personal repository for solved problems in the course Algorithms Lab at ETHZ in 
 The recommended installed version for running the code in this repository are: C++14 (gcc 8.3.1), BGL version 1.55 or newer, CGAL version 4.6 or newer, CMAKE version 3.2 or newer. On Linux install with `sudo apt-get install build-essential libboost-all-dev libcgal-dev cmake cmake-data`
 
 To correctly display the problem statements either typora, mathpix, pandoc or a similar program is required. Alternatively, just read them in plain text if you're comfortable with latex math. I hate pdf so I am not going to upload any pdf problem descriptions here.
+
+The easiest way to compile the problems is using the shell script `algolabVS.sh` in the repo root. First run `chmod +x algolabVS.sh init && ./algolabVS.sh install`. Then run `algolabVS init` in the problem’s folder, then `algolabVS test` or any of the created vs code tasks. More documentation can be found inside the script.
