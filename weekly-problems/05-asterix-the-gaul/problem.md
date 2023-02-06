@@ -30,7 +30,7 @@ In order to reach Panoramix in time, Astérix must cover a distance of at least 
   - $T$, the number of seconds it takes for the Romans to reach the druid $\left(1 \leqslant T<2^{50}\right)$.
 
 
-- The following $\mathrm{n}$ lines define the list $\mathcal{M}$ of movements Astérix may perform. Each line contains two integers $d\ t$, separated by a space, that denote the traversed distance $(1 \leqslant$ $\left.\mathrm{d}<2^{50}\right)$ and the amount of time required for the movement $\left(1 \leqslant t<2^{50}\right)$.
+- The following $n$ lines define the list $\mathcal{M}$ of movements Astérix may perform. Each line contains two integers $d\ t$, separated by a space, that denote the traversed distance $(1 \leqslant$ $\left.\mathrm{d}<2^{50}\right)$ and the amount of time required for the movement $\left(1 \leqslant t<2^{50}\right)$.
 
 - The following line contains $m$ integers $s_{1} \ldots s_{m}$, separated by a space, where $s_{i}$ denotes the additional distance covered by every movement after taking $i$ gulps of the magic potion initially $\left(1 \leqslant s_{1} \leqslant s_{2} \leqslant \ldots \leqslant s_{m}<2^{50}\right)$.
 
