@@ -1,5 +1,15 @@
 # Solution
 
+## Problem in a nutshell
+
+Given: Multiset $M$ of size $n \leq 30$ with elements $(d_i, t_i)$ and set $S$ of size $m \leq 10^5$ with elements $s_i$
+
+Find subset of $M$ with elements $(d_j, t_j)$ and minimum $k \leq m$ such that
+$$
+\sum_j t_j < T \\
+\sum_j d_j + s_i \geq D
+$$
+
 ## Basic Idea
 
 The problem is basically the Knappsack problem with 30 elements plus the possibility to add the potion gulps.
